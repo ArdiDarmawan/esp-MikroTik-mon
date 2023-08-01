@@ -1,0 +1,26 @@
+/system scheduler
+add interval=1s name="ESP Monitor" on-event="{interface monitor-traffic [/inte\
+    rface find name=\"(namainterface yang akan dimonitor)\"] once do={\r\
+    \n:local tx ((tx-bits-per-second / 1000)/1000);\r\
+    \n:local rx ((rx-bits-per-second / 1000)/1000);\r\
+    \n:put \$rx\r\
+    \n:put \$tx\r\
+    \n\r\
+    \n:local var1 [/system identity get name];\r\
+    \n:local var2 [/system resource get uptime]\r\
+    \n:local var3 [/system resource get cpu-load]\r\
+    \n:local var6 [/system clock get time]\r\
+    \n:local var7 [/ppp active print count-only]\r\
+    \n:local var8 [/ip hotspot active print count-only]\r\
+    \n:local var9 [/system clock get date]\r\
+    \n\r\
+    \n\r\
+    \n\r\
+    \n/tool fetch http-method=post output=none http-header-field=\"Content-Typ\
+    e: application/json\" http-data=\"{\\\"data1\\\":\\\"\$var1\\\",\\\"data2\
+    \\\":\\\"\$var2\\\",\\\"data3\\\":\\\"\$var3\\\",\\\"data4\\\":\\\"\$tx\\\
+    \",\\\"data5\\\":\\\"\$rx\\\",\\\"data6\\\":\\\"\$var6\\\",\\\"data7\\\":\
+    \\\"\$var7\\\",\\\"data8\\\":\\\"\$var8\\\",\\\"data9\\\":\\\"\$var9\\\"}\
+    \" url=\"http://(isikan ip address esp, lihat di dhcp server leases)/body\" \r\
+    \n} }" policy=read,write,policy,test,romon start-date=jul/29/2023 \
+    start-time=18:04:16
